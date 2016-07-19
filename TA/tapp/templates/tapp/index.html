@@ -1,0 +1,62 @@
+{% extends 'signinbase.html' %}
+{% block content %}
+{% load staticfiles %}
+	<script type="text/javascript" src='{% static "tapp/validation.js" %}'></script> 
+<link rel="stylesheet" type="text/css" href="{% static 'tapp/style.css' %}" />
+
+<div class="row welcome">
+	<div class="col-sm-4">
+	</div>
+	<div class="col-sm-4">
+		<h1 align="center">textAnalytics</h1>
+		<h6 align="center">Discuss each other’s writing.</h6>
+	</div>
+	<div class="col-sm-4">
+	</div>	
+</div>
+<div class="row">
+	<div class="col-sm-2">
+	</div>
+	<div class="indexbox col-sm-4">
+		<h4 align="center">Login</h4>
+		<form name="loginForm" role="form" 
+		action="{% url 'tapp:login_view'%}" 
+		onsubmit="return validateLoginForm()" method="post">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="text" class="form-control" name="username" id="username" />
+			</div>
+			<div class="form-group">
+				<label for="password">password</label>
+				<input type="password" class="form-control" name="password" id="password" />
+			</div>
+			<input type="submit" class="btn btn-success btn-block" value="Login" />
+		</form>		
+	</div>
+	<div class="indexbox col-sm-4">
+		<h4 align="center">Sign Up</h4>
+		<form name="SignInForm" role="form" 
+		action="{% url 'tapp:signup_view'%}" 
+		autocomplete="off"
+		onsubmit="return validateSignInForm()" 
+		method="post">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="text" class="form-control" name="username" id="username" />
+			</div>
+			<div class="form-group">
+				<label for="password">password</label>
+				<input type="password" class="form-control" name="password" id="password" />
+			</div>
+			<input type="submit" class="btn btn-success btn-block" value="Create Account" />
+		</form>		
+	</div>
+	<div class="col-sm-2">
+	</div>
+</div>
+
+
+{% endblock %}
+

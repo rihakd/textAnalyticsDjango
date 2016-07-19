@@ -1,0 +1,51 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'tapp/style.css' %}" />
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src='{% static "tapp/main.js" %}'></script> 
+
+	  	<title>textAnalytics</title>
+	</head>
+	<body>
+		<!-- -->
+		<!-- The top of the page template-->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">textAnalytics</a>
+			    </div>
+			    <div>
+			      	<ul class="nav navbar-nav">
+			        	<li><a href="{% url 'tapp:essay_group'%}">Home</a></li>
+			      	</ul>
+			      	<ul class="nav navbar-nav navbar-right">
+			        	<li>
+			        		<a href="?">
+			        		{{request.user.username}}
+			        		</a>
+			        	</li>
+			        	<li>
+			        		<a href="{% url 'tapp:logout_view'%}">
+			        			Logout
+			        		</a>
+			        	</li>
+			      	</ul>
+			    	</div>
+			</div>
+		</nav>
+		<div class="content container">
+			{% block content %}
+			{% endblock %}	
+		</div>
+
+
+	</body>
+
+</html>

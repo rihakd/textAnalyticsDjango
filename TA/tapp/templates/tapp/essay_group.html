@@ -1,0 +1,80 @@
+{% extends 'tabase.html' %}
+{% block content %}
+{% load staticfiles %}
+	<script type="text/javascript" src='{% static "tapp/validation.js" %}'></script> 
+<div class="row">
+    <div class="col-sm-9">
+        <h4> Create a Discussion </h4>
+    </div>
+</div>
+<div class="row">
+    <!-- This is the Add discussion filed. make it smaller!-->
+    <form name="discForm" role="form" 
+    action="{% url 'tapp:new_essay_group'%}" 
+    onsubmit="return validateDiscForm()" method="post">
+    {% csrf_token %}
+        <div class="form-group col-xs-2">
+            <label>discussion name:</label>
+        </div>
+        <div class="form-group col-xs-8">
+             <input type="text" class="form-control" name="name" id="name"/>
+        </div>
+        <div class="form-group col-xs-2">
+            <input type="submit" class="btn btn-success" value="Create Discussion" />
+        </div>
+        
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-9">
+        <h4> My Discussions </h4>
+    </div>
+    <div class="col-sm-3">
+        <h4> Filter by Collaborator </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        {% if users_groups %}
+            <ul class="list-group">
+            {% for essay_g in users_groups %}
+                <li class="list-group-item">
+                    <a href="{% url 'tapp:delete_essay_group' essay_g.id%}">
+                        <span class="glyphicon glyphicon-remove pull-right"></span>
+                    </a>                    
+                    <a href="{% url 'tapp:essays' essay_g.id%}">
+                        {{ essay_g.name }}
+                        <span class="badge">
+                            {{essay_g.user_set.count}}
+                        </span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No essays are available</p>
+        {% endif %}
+    </div>
+    <div class="col-sm-3">
+        {% if all_users %}
+            <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{% url 'tapp:essay_group'%}">
+                    Everyone
+                </a>
+            </li>
+            {% for user in all_users %}
+                <li class="list-group-item">
+                    <a href="{% url 'tapp:filter_essay_group' user.id%}">
+                        {{ user.username }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No users found</p>
+        {% endif %}     
+    </div>
+</div>
+{% endblock %}

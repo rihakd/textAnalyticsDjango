@@ -1,0 +1,32 @@
+{% extends 'signinbase.html' %}
+{% block content %}
+{% load staticfiles %}
+	<script type="text/javascript" src='{% static "tapp/validation.js" %}'></script> 
+<link rel="stylesheet" type="text/css" href="{% static 'tapp/style.css' %}" />
+
+<div class="row">
+	<div class="col-sm-4">
+	</div>
+	<div class="indexbox col-sm-4">
+		<h4 align="center">Sign Up</h4>
+		<form name="loginForm" role="form" 
+		action="{% url 'tapp:signup_view'%}" 
+		onsubmit="return validateLoginForm()" method="post">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="text" class="form-control" name="username" id="username" />
+			</div>
+			<div class="form-group">
+				<label for="password">password</label>
+				<input type="password" class="form-control" name="password" id="password" />
+			</div>
+			<input type="submit" class="btn btn-primary btn-block" value="Create Account" />
+		</form>		
+	</div>
+	<div class="col-sm-4">
+	</div>
+</div>
+
+{% endblock %}
+

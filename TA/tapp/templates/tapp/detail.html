@@ -1,0 +1,70 @@
+{% extends 'tabase.html' %}
+{% block content %}
+{% load staticfiles %}
+	<script type="text/javascript" src='{% static "tapp/comment.js" %}'></script>
+	<script type="text/javascript" src='{% static "tapp/jq.js" %}'></script>
+<div id="wrapper">
+	<div class="row">
+		<h4>{{ essay.essay_title }}</h4>
+	</div>
+	<div class="row">
+		<div class="col-sm-9">
+			{% autoescape off %}
+			<div class="etext form-group">
+				<div name="text" id="text"> 
+					{{ essay.essay_text}} 
+				</div>
+			</div>
+			{% endautoescape %}
+			
+			{% if error_message  %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+			<!-- onsubmit=funcitonname()-->
+		</div>
+
+		<div class="col-sm-3">
+			<!-- first part-->
+			<h4>Select text & make comment here:</h5>
+			<form action="{% url 'tapp:add_comment' essay.id%}" onsubmit="return addComment();" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<input type="text" class="form-control"
+					 name="comment" id="comment" />
+				</div>
+				<div class="form-group">
+					<input type="hidden" class="form-control"
+					 name="start" id="start" value=""/>
+				</div>
+				<div class="form-group">
+					<input type="hidden" class="form-control"
+					 name="end" id="end" value=""/>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-success"
+					 value="Submit comment" />
+				</div>
+			</form>
+
+			<!-- second part-->
+			<h4>Comments:</h5>
+			<ul class="list-group">
+				{% for comment in comments %}
+					<li class="list-group-item {{ comment.id }} comment_entry"> 
+						<span class="author"> {{ comment.author }}:
+						</span> 
+						{{ comment.comment_text }}
+					</li>
+					<script type="text/javascript">
+						var s = {{ comment.start_i }};
+						var e = {{ comment.end_i }};
+						var id = {{ comment.id }};
+						p(id, s, e);
+						//AddCommentToText(s, e);
+						//annotate(1, 1);
+					</script>
+				{% endfor%}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
