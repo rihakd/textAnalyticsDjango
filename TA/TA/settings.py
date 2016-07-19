@@ -83,17 +83,23 @@ WSGI_APPLICATION = 'TA.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+#DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'tadb',
+#         'USER': 'david',
+#         'PASSWORD': 'xyz',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5434',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tadb',
-        'USER': 'david',
-        'PASSWORD': 'xyz',
-        'HOST': '127.0.0.1',
-        'PORT': '5434',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
